@@ -1,6 +1,6 @@
-# Basic React CMS
+# Basic Python server CMS
 
-This is a basic CMS frontend that requires the Python CMS server to work from my other repository.
+This is a basic Python CMS server that requires the frontend React CMS from another repository.
 
 ## Available Scripts
 
