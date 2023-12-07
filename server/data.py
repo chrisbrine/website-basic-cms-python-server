@@ -1,5 +1,5 @@
 from server import db
-from server.models import AllowedEmail, Setting, User, Blog, Resume, WorkExperience, Education, Skill
+from server.models import AllowedEmail, Setting, User, BlogEnum, Blog, Resume, WorkExperience, Education, Skill
 import binascii
 import os
 from datetime import datetime
@@ -621,7 +621,7 @@ def deleteBlogPost(blogPostId, current_user):
 def getBlogPost(blogPostId, current_user):
   if not blogPostId:
     return {"success": False, "error": "Invalid blog post ID"}
-  blogPost = BlogPost.query.filter_by(id=blogPostId).first()
+  blogPost = Blog.query.filter_by(id=blogPostId).first()
   if blogPost.user_id != current_user.id:
     return {"success": False, "error": "Permission denied"}
   return {"success": True, "data": blogPost.toObject()}
@@ -637,7 +637,7 @@ def getBlogPosts(current_user):
   return {"success": True, "data": blogPost_list}
 
 def getAllPublishedBlogPosts():
-  blogPosts = Blog.query.filter_by(status='published').all()
+  blogPosts = Blog.query.filter_by(status=BlogEnum.PUBLISHED).all()
   blogPost_list = []
   if (blogPosts):
     for blogPost in blogPosts:
